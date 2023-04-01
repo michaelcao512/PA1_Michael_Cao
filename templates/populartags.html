@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+
+<head>
+    <title>Popular Tags</title>
+</head>
+
+<body>
+
+    {% if tags %}
+    <h2>The most popular tag is
+        {% for tag in tags %}"{{tag[0]}}" {% endfor %} with {{tags[0][1]}} photos</h2>
+    {% else %}
+    <h2>There are no most popular tag</h2>
+    {% endif %}
+
+
+
+    <h2>Top Tags</h2>
+    <form method="POST" enctype="multipart/form-data" action="/photosbytag">
+
+        {% for tag in tags %}
+
+        {{tag[0]}}: {{tag[1]}} photos
+        <input type="radio" name="tag_name" value="{{tag[0]}}" required>
+        <br>
+        {% endfor %}
+        <input type="hidden" name="view_all" value="True">
+        <input type="submit" value="View photos with this tag">
+    </form>
+
+
+    {% if current_user_id %}
+    <p> Go to your <a href='/profile'> profile?</a></p>
+    {% endif %}
+    <p> <a href='/'>Home</a></p>

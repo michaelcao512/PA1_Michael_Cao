@@ -1,0 +1,23 @@
+<head>
+    <title>Create an album!</title>
+</head>
+
+
+{% if message %}
+<h4>{{message}}!</h4>
+{% endif %}
+
+
+<body>
+    <h2>Create an Album to place your photos in!</h2>
+
+
+    <form method="post" enctype="multipart/form-data" action="/createalbum">
+        <label for="album_name">Enter the name for the album:</label>
+        <input type="text" name="album_name" required='true' /><br />
+        <input type="submit" />
+    </form>
+
+    <p> Go to your <a href='/profile'> profile?</a></p>
+
+</body>

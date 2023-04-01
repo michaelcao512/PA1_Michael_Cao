@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+
+<head>
+    <title>Users by Comments</title>
+    <h1>Users by Comment</h1>
+</head>
+
+<body>
+
+    {% if users %}
+        <h2> Users who commented "{{comment}}"</h2>
+        <ol>
+
+        {% for user in users %}
+            <li> <a href='/profile/{{user[2]}}'>{{user[0]}} {{user[1]}}</a> with {{user[3]}} comments</li>
+        {% endfor %}
+    </ol>
+
+    {% else %}
+    <h2>No users found with the comment "{{comment}}"</h2>
+    {% endif %}
+
+    <a href='/searchprofile'>Go back to search</a>
+    {% if current_user_id %}
+        Go to your <a href='/profile'> profile?</a>
+    {% endif %}
+    <p> <a href='/'>Home</a> </p>
+</body>

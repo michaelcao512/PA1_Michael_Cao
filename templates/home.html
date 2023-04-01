@@ -1,0 +1,38 @@
+<!-- VIEWING OWN PROFILE -->
+
+<!doctype html>
+{% if message %}
+<h4>{{message}}!</h4>
+{% endif %}
+<title>Photoshare</title>
+{% if name %}
+<h1>Hello {{ name }}!</h1>
+{% endif %}
+
+{% if photos %}
+<h2>Here are your photos</h2>
+<ul>
+  {% for photo in photos %}
+
+  <li>{{photo[2]}}<br>
+    <img src='data:image/jpg;base64, {{ base64.b64encode(photo[0]).decode("ascii") }}' />
+  </li>
+  {% endfor %}
+</ul>
+{% endif %}
+
+
+<a href="/photosbytag">Search photos by tag or comments</a> <br>
+<a href='/searchprofile'>Search for a profile</a>
+
+{% if loggedout %}
+<p> <a href='/login'>login</a> <br>
+  <a href='/register'>register</a>
+</p>
+{% else %}
+<p> Go to your <a href='/profile'> profile?</a></p>
+<p><a href='/logout' </a>Logout</p>
+
+
+
+{% endif %}

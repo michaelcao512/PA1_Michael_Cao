@@ -1,0 +1,37 @@
+<head>
+    <title>Search profile!</title>
+</head>
+
+{% if message %}
+{{message}}
+{% endif %}
+
+<body>
+    <div class="title">
+        <h1>Search for a profile</h1>
+    </div>
+
+    <h2>Search by Email</h2>
+    <form method="post" enctype="multipart/form-data" action="/searchprofile">
+        <label for="email">Enter their email:</label>
+        <input type="email" name="email" required='true' /><br />
+        <input type="submit" value="Search" />
+    </form>
+
+
+
+    <h2>Search by Comments</h2>
+    <form method="post" enctype="multipart/form-data" action="/searchprofile">
+        <label for="comment">Enter a comment:</label>
+        <input type="text" name="comment" required='true' /><br />
+        <input type="submit" value="Search" />
+    </form>
+
+
+
+    {% if current_user_id %}
+    <p> Go to your <a href='/profile'> profile?</a></p>
+    {% endif %}
+    <p> <a href='/'>Home</a> </p>
+
+</body>

@@ -1,0 +1,16 @@
+<head>
+    <title>Add a friend!</title>
+</head>
+
+<body>
+    <div class="title">
+        <h1>Add a friend</h1>
+    </div>
+    <form method="post" enctype="multipart/form-data" action="/addfriend">
+        <label for="friendemail">Enter friends email:</label>
+        <input type="email" name="friendemail" required='true' /><br />
+        <input type="submit" value="Add friend" />
+    </form>
+
+    <p> Go to your <a href='/profile'> profile?</a></p>
+</body>

@@ -1,0 +1,170 @@
+<!doctype html>
+
+<head>
+    <title>Photos</title>
+</head>
+
+<body>
+
+    <!-- if there is a uid, this indicate viewing other user profile -->
+    <!-- otherwise, viewing own profile -->
+
+    <!-- if there is a current_user_id, this indicate registerd browsing -->
+
+    {% if message %}
+    {{message}}
+    {% endif %}
+
+    {% if albums %}
+
+    {% if uid %}
+    <h2>{{name}}'s Albums</h2>
+    {% else %}
+    <h2>Your Albums</h2>
+    {% endif %}
+
+    <ul>
+        {% for album in albums %}
+        <li>
+
+            {% if uid %}
+            <a href='/profile/{{uid}}/viewphotos/{{album[1]}}''>{{album[0]}}</a>
+                {% else %}
+                    <a href=' /viewphotos/{{album[1]}}'>{{album[0]}}</a>
+            {% endif %}
+
+        </li>
+        {% endfor %}
+
+    </ul>
+
+    {% else %}
+    {% if not photos%}
+    {% if album_name %}
+
+    {% if uid %}
+    <h2> {{name}} has no photos in "{{album_name}}"</h2>
+    {% else %}
+    <h2> You have no photos "{{album_name}}"</h2>
+    {% endif %}
+
+    {% else %}
+
+    {% if uid %}
+    <h2> {{name}} has no albums</h2>
+    {% else %}
+    <h2> You have no albums</h2>
+    {% endif %}
+    {% endif %}
+    {% endif %}
+    {% endif %}
+
+
+    {% if photos %}
+
+
+    <!-- HEADING -->
+    {% if uid %}
+    <!-- Other person's album -->
+    <h2>Here are {{name}}'s photos in "{{album_name}}"</h2>
+    {% else %}
+    <!-- Own album -->
+    {% if tag_name %}
+    <!-- photos by tag -->
+    {% if viewall %}
+    <h2>Here are all photos with the tag "{{tag_name}}"</h2>
+    {% else %}
+    <h2>Here are your photos with tag "{{tag_name}}"</h2>
+    {% endif %}
+    {% elif comment %}
+    <!-- photos by comment -->
+    <h2>Here are photos with the comment "{{comment}}"</h2>
+    {% else %}
+    <!-- photos by album -->
+    <h2 style="color:blueviolet">Here are your photos in "{{album_name}}"</h2>
+    {% endif %}
+
+    {% endif %}
+
+    <ul>
+        {% for photo in photos %}
+
+        <!-- caption and photo -->
+        <p style="text-align:center;font-size:30px;width:200px;margin-bottom: 2px;color:darkred">{{photo[1]}} </p>
+        <img src='data:image/jpg;base64, {{ base64.b64encode(photo[0]).decode("ascii") }}' width="200" height="266"" />
+                    <br> 
+
+
+                    <!-- comment -->
+                {% if uid %}
+                    <form action=" /profile/{{uid}}/viewphotos/{{photo[4]}}" enctype="multipart/form-data"
+            method="POST">
+        <input type="text" name="comment" placeholder="Comment" style="width:200px" required>
+        <input type="hidden" name="photo_id" value="{{photo[2]}}">
+        <input type="submit" value="Comment">
+        </form>
+        <!--  likes for other users photos-->
+        {% if current_user_id %}
+        <!-- only for registered user -->
+        <form action="/profile/{{uid}}/viewphotos/{{photo[3]}}" enctype="multipart/form-data" method="POST">
+            <input type="hidden" name="photo_id" value="{{photo[2]}}">
+            <input type="submit" name="like" value="Like!">
+        </form>
+        {% endif %}
+        {% else %}
+        <!--  likes for own all photos-->
+        {% if album_id %}
+        <form action="/viewphotos/{{album_id}}" enctype="multipart/form-data" method="POST">
+            <input type="hidden" name="photo_id" value="{{photo[2]}}">
+            <input type="hidden" name="view_all" value="True">
+            <input type="submit" name="like" value="Like!!"
+                style="font-size:20px;width:200px;color: darkblue;background-color: goldenrod;">
+        </form>
+        {% else %}
+        <!-- tag -->
+        <form action="/viewphotos" enctype="multipart/form-data" method="POST">
+            <input type="hidden" name="photo_id" value="{{photo[2]}}">
+            <input type="hidden" name="tag_name" value="{{tag_name}}">
+            <input type="submit" name="like" value="Like!!!"
+                style="font-size:20px;width:200px;color: darkblue;background-color: goldenrod;">
+        </form>
+
+        <!-- view people who liked photos -->
+
+        {% endif %}
+        {% endif %}
+
+        <!--   displaying number of likes-->
+        <p style="font-size:20px;width:200px;margin-bottom: 2px;color:green">Likes: {{photo[3]}}</p>
+        {% for user in photo[5] %}
+        {{user[0]}} {{user[1]}}
+        {% endfor %}
+        {% endfor %}
+    </ul>
+
+    {% if uid %}
+    <a href=" /profile/{{uid}}/viewphotos">View {{name}}'s other albums</a>
+    {% else %}
+
+    <a href='/photosbytag'> View photos by tag</a> <br>
+    <a href='/viewphotos'> View your albums</a> <br>
+
+    {% endif %}
+    {% endif %}
+
+
+
+    {% if not uid and not photos%}
+    <a href='/createalbum'>Create an album</a> <br>
+    <a href='/upload'>Upload a photo</a> </li><br>
+    {% endif %}
+
+
+    {% if current_user_id %}
+    <p> Go to your <a href='/profile'> profile?</a></p>
+    {% endif %}
+    {% if uid %}
+    <p> Go back to {{name}}'s<a href='/profile/{{uid}}'> profile?</a></p>
+    {% endif %}
+    <p> <a href='/'>Home</a></p>
+</body>

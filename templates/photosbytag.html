@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+
+
+</head>
+<title>Search Photos</title>
+</head>
+
+{% if message %}
+<p>{{message}}</p>
+{% endif %}
+
+<body>
+    <h1>Search for photos by tags</h1>
+    {% if tags %}
+    <h3>Tags from your library</h3>
+    <form method="POST" enctype="multipart/form-data" action="/photosbytag">
+        {% for tag in tags %}
+        <input type="radio" name="tag_name" value="{{tag[0]}}" required> {{tag[0]}} <br>
+        {% endfor %}
+        <input type="submit" value="View your Photos"> <br>
+        <input type="submit" name="view_all" value="View all Photos"> <br>
+    </form>
+
+    {% endif %}
+
+    <h3>Search tags</h3>
+    <form method="POST" enctype="multipart/form-data" action="/photosbytag">
+        <label for="tag_name">Search for photos with tags:</label>
+        <input type="text" name="tag_name" required="true"> <br>
+        <input type="submit" name="view_all" value="View photos"> <br>
+    </form>
+    <br>
+
+    <h3>View the most popular tags</h3>
+    <form method="POST" enctype="multipart/form-data" action="/photosbytag">
+        <input type="submit" name="popular_tag" value="Most Popular Tags">
+    </form>
+
+</body>
+
+
+
+{% if current_user_id %}
+<p> Go to your <a href='/profile'> profile?</a></p>
+{% endif %}
+<p> <a href='/'>Home</a></p>
+
+
+

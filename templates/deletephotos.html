@@ -1,0 +1,59 @@
+<!doctype html>
+
+<head>
+    <title>Delete photos</title>
+</head>
+
+<body>
+    {% if albums %}
+    <h2>Select an album to delete from</h2>
+    
+    <ul>
+        {% for album in albums %}
+        <li>
+            <a href='/deletephotos/{{album[1]}}'>{{album[0]}}</a>
+        </li>
+        {% endfor %}
+
+    </ul>
+
+    {% else %}
+        {% if not photos%}
+            {% if album_name %}
+                <h2> You have no photos "{{album_name}}"</h2>
+                <a href="/upload">Upload a photo</a> <br>
+            {% else %}
+               <h2> You have no albums</h2>
+               <a href="/createalbum">Create a new album</a> <br>
+
+            {% endif %}
+        {% endif %}
+    {% endif %}
+
+
+    {% if photos %}
+    <h2>Select a photo to delete from {{album_name}}</h2>
+    <form action='/deletephotos/{{album_id}}' method='POST'>
+        <ul>
+            {% for photo in photos %}
+            <input type='radio' name='photo_id' value='{{photo[2]}}'>
+            {{photo[1]}}<br>
+            <img src='data:image/jpg;base64, {{ base64.b64encode(photo[0]).decode("ascii") }}' width="200" height="275"/>
+            <br>
+            {% endfor %}
+        </ul>
+        <input type='submit' value='Delete'> <br>
+                <!-- delete entire album -->
+                <form action='/deletephotos/{{album_id}}' method='POST'>
+                    <input type='submit' name='delete_album' value='Delete the entire album'></button>
+                </form>
+    
+                <br>
+            <a href='/deletephotos'> Delete from other albums</a> <br>
+
+    {% else %}
+
+        {% endif %}
+        <p> Go to your <a href='/profile'> profile?</a></p>
+
+</body>

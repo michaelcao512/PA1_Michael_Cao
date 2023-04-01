@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+
+<head>
+    <title>Friend Recommendation</title>
+    <h1>Friend Recommendations</h1>
+</head>
+
+<body>
+    <h3>Recommendations</h3>
+    {% if friends %}
+    <ul>
+
+    {% for friend in friends %}
+    <li><a href='/profile/{{friend[2]}}'>{{friend[0]}} {{friend[1]}}</a> </li>
+    {% endfor %}
+</ul>
+
+    {% else %}
+    <p>There are no avaliable friend recommendation</p>
+    {% endif %}
+
+    <a href='/addfriend'>Add Friend</a><br>
+    <a href="/profile">Back to Profile</a><br>
+    <a href='/'>Home</a>
+</body>

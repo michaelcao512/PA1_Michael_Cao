@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+
+<head>
+    <title>User Activity</title>
+    <h1>User Activity</h1>
+</head>
+
+
+<body>
+    {% if friends %}
+        <h3>Users listed by Contribution Score</h3>
+        {% for friend in friends %}
+            <li><a href='/profile/{{friend[5]}}'>{{friend[0]}} {{friend[1]}}</a> </li>
+                total score: {{friend[2]}}<br>
+                    photos: {{friend[3]}}<br>
+                    comments: {{friend[4]}}<br>
+        {% endfor %}
+    {% else %}
+        <p>There are no users</p>
+    {% endif %}
+
+
+
+
+    <a href='/addfriend'>Add Friend</a><br>
+    <a href="/profile">Back to Profile</a><br>
+    <a href='/'>Home</a>
+
+
+</body>

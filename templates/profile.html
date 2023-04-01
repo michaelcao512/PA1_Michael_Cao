@@ -1,0 +1,60 @@
+<!-- PROFILE HTML for viewing the profile of other users -->
+
+<!doctype html>
+{% if message %}
+<h4>{{message}}!</h4>
+{% endif %}
+<title>Photoshare</title>
+{% if name %}
+<h1>Hello {{ name }}!</h1>
+{% endif %}
+
+
+<body>
+
+    {% if photos %}
+    <h2>Here are your photos</h2>
+    <ul>
+        {% for photo in photos %}
+
+        <li>{{photo[2]}}<br>
+            <img src='data:image/jpg;base64, {{ base64.b64encode(photo[0]).decode("ascii") }}' />
+        </li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+
+
+    {% if profile_name %}
+    <!-- SEARCHING OTHER PROFILES -->
+    <h2>{{profile_name}}'s Profile</h2>
+    <h4>Email: {{email}}</h4>
+    <a href='/profile/{{uid}}/viewphotos'>View photos</a> <br>
+
+    {% else %}
+    <!-- VIEWING OWN PROFILE -->
+    <a href='/addfriend'>Add a friend</a> <br>
+    <a href='/friendslist'>Friends List</a> <br>
+    <a href='/friendrecommendation'>Friend Recommendations</a> <br>
+    <a href='/useractivity'>User Activity</a> <br>
+    <a href='/viewphotos'>Your Photos</a> <br>
+    <a href='/youmayalsolike'>You May Also Like</a> <br>
+    <a href='/photosbytag'>Search Photos by Tag</a> <br>
+    <a href='/searchprofile'>Search for a Profile</a> <br>
+    <a href='/createalbum'>Create an Album</a> <br>
+    <a href='/upload'>Upload a Photo</a> <br>
+    <a href='/deletephotos'>Delete your Photos</a> <br>
+
+    <a href='/logout'>Logout</a> <br>
+
+
+    {% endif %}
+
+
+
+</body>
+
+{% if current_user_id %}
+<p>Go to your <a href='/profile'> profile?</a></p>
+{% endif %}
+<p><a href='/'>Home</a> </p>

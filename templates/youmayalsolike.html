@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+
+<head>
+    <title>Photos You May Also Like</title>
+    <h1>Photos you may also like</h1>
+
+
+
+</head>
+
+
+<body>
+    <h3>Here are some recommended photos you may like</h3>
+    {% if photos %}
+    {% for photo in photos %}
+    <p style="text-align:center;font-size:30px;width:200px;margin-bottom: 2px;color:darkred">{{photo[1]}} </p>
+
+    <img src='data:image/jpg;base64, {{ base64.b64encode(photo[0]).decode("ascii") }}' width="200" height="266"" />
+    {% endfor %}
+    {% else %}
+    <h3>There are no photos to recommend for you</h3>>
+    {% endif %}
+
+
+
+
+    <p> Go to your <a href='/profile'> profile?</a></p>
+
+    <p> <a href='/'>Home</a></p>
+</body>

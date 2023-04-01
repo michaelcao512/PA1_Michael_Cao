@@ -1,0 +1,28 @@
+<!doctype html>
+
+<head>
+  <title>Friends list</title>
+</head>
+
+<body>
+
+
+  {% if friends %}
+  <h4>Here are your friends!!</h4>
+  <ul>
+    {% for friend in friends %}
+
+
+    <li>{{friend[0] + ' ' + friend[1]}}</li>
+
+    {% endfor %}
+  </ul>
+
+  {% else %}
+  <h4>You have no friends :(</h4>
+  {% endif %}
+
+
+  <a href='/addfriend'>Add friends?</a> <br>
+  <p> Go to your <a href='/profile'> profile?</a></p>
+</body>
