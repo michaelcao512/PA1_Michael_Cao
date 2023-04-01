@@ -1,4 +1,4 @@
-To get the skeleton running, open a terminal and do the following:
+# To get the skeleton running, open a terminal and do the following:
 	1. enter the skeleton folder 'cd path/to/skeleton'
 	2. install all necessary packages 'pip install -r requirements.txt' (or use pip3)
 	3. export flask (Mac, Linux)'export FLASK_APP=app.py', (Windows)'set FLASK_APP=app.py'
